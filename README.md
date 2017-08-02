@@ -89,22 +89,51 @@ end
 
 ## Object Exists
 ```sql
+-- tables
 exists(select * from information_schema.tables 
        where table_name = 'MyTable'
        and table_schema = 'dbo')
 
+-- columns
 exists(select * from information_schema.columns 
        where table_name = 'MyTable' and column_name = 'CreatorUserId')
 
-exists (select * from sysobjects where id = object_id(N'dbo.FN_MyFunction') and type in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+-- stored procedures
+exists (select * from sysobjects 
+	where id = object_id(N'dbo.MyTable_GetItems') and ObjectProperty(id, N'IsProcedure') = 1)
 
+-- functions
+exists (select * from sysobjects where id = object_id(N'dbo.DoSomething') and type in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+
+-- keys
 object_id('dbo.PK_MyPrimaryKey', 'PK') is not null
 object_id('dbo.FK_MyForeignKey', 'F') is not null
+
+-- constraints
 object_id('dbo.CK_MyCheckConstraint', 'C') is not null
 object_id('dbo.DF_MyDefaultConstraint', 'D') is not null
 
+-- index
 exists (select * from sys.indexes 
 		 where name='IX_MyTableName' AND object_id = object_id('dbo.MyTable'))
+
+-- trigger
+ObjectProperty(object_id('dbo.MyTable_CascadeDelete'), 'IsTrigger') = 1
+
+-- view
+object_id('dbo.MyView', 'V') is not null
+
+```
+
+## Drop
+
+```
+drop table dbo.MyTable
+alter table dbo.MyTable drop column MyColumn
+drop function dbo.DoSomething
+drop procedure dbo.MyTable_GetItems
+drop trigger dbo.MyTable_CascadeDelete
+drop view dbo.MyView
 ```
 
 ## Throw Error
