@@ -127,7 +127,7 @@ object_id('dbo.MyView', 'V') is not null
 
 ## Drop
 
-```
+```sql
 drop table dbo.MyTable
 alter table dbo.MyTable drop column MyColumn
 drop function dbo.DoSomething
