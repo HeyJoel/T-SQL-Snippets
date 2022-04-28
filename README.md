@@ -1,6 +1,6 @@
 # SQL-Snippets
 
-A reference list of common sql dml snippets
+A reference list of common sql ddl snippets
 
 ## Create Table
 
@@ -51,9 +51,22 @@ exec sp_rename 'dbo.FK_MyNewTable_User', 'FK_MyNewTable_CreatorUser', 'object'
 exec sp_rename 'dbo.MyNEwTable.IX_MyTable_IndexName', 'IX_MyNewTable_IndexName', 'index'
 ```
 
+## Create Schema
+
+```sql
+create schema MySchema
+
+-- OR
+
+if (not exists(select * from sys.schemas where name = 'MySchema'))
+begin
+	exec('create schema MySchema')
+end
+```
+
 ## Change Schema
 ```sql
-alter schema myschema transfer dbo.MyTable
+alter schema MySchema transfer dbo.MyTable
 ```
 
 ## Drop auto-named constraint
