@@ -1,6 +1,6 @@
-# SQL-Snippets
+# T-SQL Snippets
 
-A reference list of common sql ddl snippets
+A reference list of common SQL Server DDL snippets.
 
 ## Create Table
 
